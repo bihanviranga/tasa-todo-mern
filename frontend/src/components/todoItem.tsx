@@ -9,7 +9,11 @@ import { useAppDispatch } from '../hooks';
 import { deleteTodo } from '../redux/slices/todoSlice';
 import './todoItem.css';
 
-const TodoItemElement = (props: { item: TodoItem }) => {
+interface TodoItemElementProps {
+  item: TodoItem;
+}
+
+const TodoItemElement = (props: TodoItemElementProps) => {
   const dispatch = useAppDispatch();
   const { item } = props;
 

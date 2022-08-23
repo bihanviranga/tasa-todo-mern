@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { TodoItem, TodoItemCreateDto } from '../../types/todo';
+import { TodoItem, TodoItemCreateUpdateDto } from '../../types/todo';
 
 const API_BASE = 'http://localhost:8080/api/todo';
 
@@ -22,7 +22,7 @@ export const getAllTodos = createAsyncThunk('todos/getAll', async () => {
 
 export const createNewTodo = createAsyncThunk(
   'todos/create',
-  async (data: TodoItemCreateDto) => {
+  async (data: TodoItemCreateUpdateDto) => {
     try {
       const response = await axios.post(API_BASE, data);
       return response.data;

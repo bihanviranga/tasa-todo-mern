@@ -3,7 +3,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 import TodoList from './components/todoList';
-import TodoForm from './components/todoForm';
+import TodoAdd from './components/todoAdd';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
         <h1>Todo List</h1>
       </Row>
       <Row>
-        <TodoForm />
+        <TodoAdd />
       </Row>
       <Row>
         <Col>

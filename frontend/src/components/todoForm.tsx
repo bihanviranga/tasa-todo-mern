@@ -4,23 +4,34 @@ import Container from 'react-bootstrap/Container';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 
-import { useAppDispatch } from '../hooks';
-import { createNewTodo } from '../redux/slices/todoSlice';
+import { TodoItemCreateUpdateDto } from '../types/todo';
 
-const TodoForm = () => {
-  const dispatch = useAppDispatch();
+interface TodoFormProps {
+  modalType: 'add' | 'update';
+  showModal: boolean;
+  defaultValues?: {
+    name: string;
+    description: string;
+  };
+  onModalClose: () => void;
+  onSubmit: (data: TodoItemCreateUpdateDto) => void;
+}
 
-  const defaultFormFields = {
+const TodoForm = (props: TodoFormProps) => {
+  const { modalType, showModal, defaultValues, onModalClose, onSubmit } = props;
+
+  const emptyFormFields = {
     name: '',
     description: '',
   };
 
-  const [showModal, setShowModal] = useState(false);
-  const [inputFields, setInputFields] = useState(defaultFormFields);
+  const [inputFields, setInputFields] = useState<TodoItemCreateUpdateDto>(
+    modalType === 'update' && defaultValues ? defaultValues : emptyFormFields,
+  );
 
   const handleModalClose = () => {
-    setShowModal(false);
-    setInputFields(defaultFormFields);
+    onModalClose();
+    setInputFields(emptyFormFields);
   };
 
   const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -31,18 +42,16 @@ const TodoForm = () => {
   };
 
   const handleSubmit = () => {
-    dispatch(createNewTodo(inputFields));
+    onSubmit(inputFields);
     handleModalClose();
   };
 
   return (
     <Container>
-      <Button variant="outline-primary" onClick={() => setShowModal(true)}>
-        Add new todo
-      </Button>
-
       <Modal show={showModal} onHide={handleModalClose}>
-        <Modal.Header closeButton>Add new todo</Modal.Header>
+        <Modal.Header closeButton>
+          {modalType === 'add' ? 'Add new' : 'Update'} todo
+        </Modal.Header>
         <Modal.Body>
           <Container>
             <Form.Group>
@@ -69,7 +78,7 @@ const TodoForm = () => {
             onClick={handleSubmit}
             disabled={inputFields.name === ''}
           >
-            Add
+            {modalType === 'add' ? 'Add' : 'Update'}
           </Button>
           <Button variant="outline-secondary" onClick={handleModalClose}>
             Cancel

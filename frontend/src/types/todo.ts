@@ -6,7 +6,7 @@ export interface TodoItem {
   favourite?: boolean;
 }
 
-export interface TodoItemCreateDto {
+export interface TodoItemCreateUpdateDto {
   name: string;
   description?: string;
 }
