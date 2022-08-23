@@ -6,6 +6,13 @@
 `cd backend`
 `npm i`
 
+- Configure database and environment
+This backend uses MongoDB as a database. MongoDB credentials are store in a `backend/.env` file in the following format:
+```
+MONGODB_URI="mongodb+srv://dbadmin:<PASSWORD-HERE>@cluster0.lweoh.mongodb.net/?retryWrites=true&w=majority"
+EXPRESS_APP_PORT=8080
+```
+
 - Run
 `npm start`
 

@@ -3,18 +3,24 @@ import mongoose from 'mongoose';
 import 'dotenv/config';
 
 import databaseUri from './config/db.config';
-import expressPort from './config/app.config';
+import { expressPort, apiUrlPrefix } from './config/app.config';
+import todoRouter from './router/todoRouter';
 
-const app: express.Application = express();
+const app = express();
 
-mongoose.connect(databaseUri).catch((err) => {
-  console.error('Error connecting to MongoDB:', err);
-});
+// Connect to the database
+mongoose
+  .connect(databaseUri)
+  .then(() => {
+    console.log('Connected to MongoDB');
+  })
+  .catch((err) => {
+    console.error('Error connecting to MongoDB:', err);
+  });
 
-app.get('/', (_req, res) => {
-  res.send('Hello, world!');
-});
+app.use(`${apiUrlPrefix}/todo`, todoRouter);
 
+// Start the server
 app.listen(expressPort, () => {
   console.log(`Express server listening on port ${expressPort}`);
 });

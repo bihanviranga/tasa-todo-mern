@@ -1,2 +1,2 @@
-const port = process.env.EXPRESS_APP_PORT || 8080;
-export default port;
+export const expressPort = process.env.EXPRESS_APP_PORT || 8080;
+export const apiUrlPrefix = '/api';
