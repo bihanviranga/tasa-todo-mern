@@ -30,3 +30,15 @@ export const createNewTodo = async (req: Request, res: Response) => {
     res.send();
   }
 };
+
+export const deleteTodo = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    await TodoItem.findByIdAndDelete(id);
+    res.send();
+  } catch (err) {
+    console.error('Failed to delete todo:', err);
+    res.status(500);
+    res.send();
+  }
+};

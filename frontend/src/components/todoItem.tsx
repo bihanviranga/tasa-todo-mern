@@ -5,10 +5,17 @@ import Button from 'react-bootstrap/Button';
 import { Pencil, Check2, Trash } from 'react-bootstrap-icons';
 
 import { TodoItem } from '../types/todo';
+import { useAppDispatch } from '../hooks';
+import { deleteTodo } from '../redux/slices/todoSlice';
 import './todoItem.css';
 
 const TodoItemElement = (props: { item: TodoItem }) => {
+  const dispatch = useAppDispatch();
   const { item } = props;
+
+  const handleDelete = () => {
+    dispatch(deleteTodo(item._id));
+  };
 
   return (
     <Container className="todoItemContainer">
@@ -28,7 +35,7 @@ const TodoItemElement = (props: { item: TodoItem }) => {
           </Button>
         </Col>
         <Col sm={1}>
-          <Button size="sm" variant="outline-danger">
+          <Button size="sm" variant="outline-danger" onClick={handleDelete}>
             <Trash />
           </Button>
         </Col>

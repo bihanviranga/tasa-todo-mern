@@ -32,6 +32,17 @@ export const createNewTodo = createAsyncThunk(
   },
 );
 
+export const deleteTodo = createAsyncThunk(
+  'todos/delete',
+  async (id: string) => {
+    try {
+      await axios.delete(`${API_BASE}/${id}`);
+    } catch (err) {
+      console.error('Failed to delete todo:', err);
+    }
+  },
+);
+
 export const todoSlice = createSlice({
   name: 'todo',
   initialState,
@@ -49,6 +60,13 @@ export const todoSlice = createSlice({
     });
     builder.addCase(createNewTodo.rejected, () => {
       console.error('Failed to create todo');
+    });
+
+    builder.addCase(deleteTodo.fulfilled, (state, action) => {
+      state.items = state.items.filter((item) => item._id !== action.meta.arg);
+    });
+    builder.addCase(deleteTodo.rejected, () => {
+      console.error('Failed to delete todo');
     });
   },
 });
