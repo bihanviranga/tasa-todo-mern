@@ -6,3 +6,7 @@
 .todoItemContainer:hover {
   background: var(--bs-gray-300);
 }
+
+.todoItemContainerDone {
+  background: var(--bs-gray-500);
+}

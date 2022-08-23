@@ -33,17 +33,43 @@ const TodoItemElement = (props: TodoItemElementProps) => {
     dispatch(updateTodo({ id: item._id, data: { ...item, ...data } }));
   };
 
+  const handleToggleCompleted = () => {
+    dispatch(
+      updateTodo({
+        id: item._id,
+        data: { ...item, completed: !item.completed },
+      }),
+    );
+  };
+
   return (
-    <Container className="todoItemContainer">
+    <Container
+      className={
+        'todoItemContainer ' + (item.completed ? 'todoItemContainerDone' : '')
+      }
+    >
       <Row className="align-items-center">
         <Col sm={1}>
-          <Button size="sm" variant="outline-success">
+          <Button
+            size="sm"
+            variant={item.completed ? 'success' : 'outline-success'}
+            onClick={handleToggleCompleted}
+          >
             <Check2 />
           </Button>
         </Col>
         <Col>
-          <Row>{item.name}</Row>
-          <Row className="text-secondary">{item.description}</Row>
+          <Row className={item.completed ? 'text-decoration-line-through' : ''}>
+            {item.name}
+          </Row>
+          <Row
+            className={
+              'text-secondary ' +
+              (item.completed ? 'text-decoration-line-through' : '')
+            }
+          >
+            {item.description}
+          </Row>
         </Col>
         <Col sm={1}>
           <Button
