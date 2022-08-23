@@ -1,12 +1,14 @@
+import { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { Pencil, Check2, Trash } from 'react-bootstrap-icons';
 
-import { TodoItem } from '../types/todo';
+import { TodoItem, TodoItemCreateUpdateDto } from '../types/todo';
 import { useAppDispatch } from '../hooks';
-import { deleteTodo } from '../redux/slices/todoSlice';
+import { deleteTodo, updateTodo } from '../redux/slices/todoSlice';
+import TodoForm from './todoForm';
 import './todoItem.css';
 
 interface TodoItemElementProps {
@@ -17,8 +19,18 @@ const TodoItemElement = (props: TodoItemElementProps) => {
   const dispatch = useAppDispatch();
   const { item } = props;
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleDelete = () => {
     dispatch(deleteTodo(item._id));
+  };
+
+  const handleEditModalClose = () => {
+    setShowModal(false);
+  };
+
+  const handleEditModalSubmit = (data: TodoItemCreateUpdateDto) => {
+    dispatch(updateTodo({ id: item._id, data: { ...item, ...data } }));
   };
 
   return (
@@ -34,7 +46,11 @@ const TodoItemElement = (props: TodoItemElementProps) => {
           <Row className="text-secondary">{item.description}</Row>
         </Col>
         <Col sm={1}>
-          <Button size="sm" variant="outline-primary">
+          <Button
+            size="sm"
+            variant="outline-primary"
+            onClick={() => setShowModal(true)}
+          >
             <Pencil />
           </Button>
         </Col>
@@ -43,6 +59,13 @@ const TodoItemElement = (props: TodoItemElementProps) => {
             <Trash />
           </Button>
         </Col>
+        <TodoForm
+          modalType="update"
+          showModal={showModal}
+          defaultValues={{ name: item.name, description: item.description }}
+          onModalClose={handleEditModalClose}
+          onSubmit={handleEditModalSubmit}
+        />
       </Row>
     </Container>
   );

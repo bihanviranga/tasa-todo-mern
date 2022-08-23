@@ -42,3 +42,19 @@ export const deleteTodo = async (req: Request, res: Response) => {
     res.send();
   }
 };
+
+export const updateTodo = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const updatedTodo = await TodoItem.findByIdAndUpdate(id, req.body, {
+      returnDocument: 'after',
+    });
+    res.json({
+      todo: updatedTodo,
+    });
+  } catch (err) {
+    console.error('Failed to update todo:', err);
+    res.status(500);
+    res.send();
+  }
+};

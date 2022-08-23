@@ -11,7 +11,7 @@ interface TodoFormProps {
   showModal: boolean;
   defaultValues?: {
     name: string;
-    description: string;
+    description?: string;
   };
   onModalClose: () => void;
   onSubmit: (data: TodoItemCreateUpdateDto) => void;
@@ -31,7 +31,11 @@ const TodoForm = (props: TodoFormProps) => {
 
   const handleModalClose = () => {
     onModalClose();
-    setInputFields(emptyFormFields);
+    if (modalType === 'add') {
+      setInputFields(emptyFormFields);
+    } else if (defaultValues) {
+      setInputFields(defaultValues);
+    }
   };
 
   const handleTextChange = (event: ChangeEvent<HTMLInputElement>) => {

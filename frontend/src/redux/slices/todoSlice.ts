@@ -43,6 +43,19 @@ export const deleteTodo = createAsyncThunk(
   },
 );
 
+export const updateTodo = createAsyncThunk(
+  'todos/update',
+  async (args: { id: string; data: TodoItem }) => {
+    try {
+      const { id, data } = args;
+      const response = await axios.put(`${API_BASE}/${id}`, data);
+      return response.data;
+    } catch (err) {
+      console.error('Failed to update todo:', err);
+    }
+  },
+);
+
 export const todoSlice = createSlice({
   name: 'todo',
   initialState,
@@ -67,6 +80,19 @@ export const todoSlice = createSlice({
     });
     builder.addCase(deleteTodo.rejected, () => {
       console.error('Failed to delete todo');
+    });
+
+    builder.addCase(updateTodo.fulfilled, (state, action) => {
+      state.items = state.items.map((item) => {
+        if (item._id === action.meta.arg.id) {
+          return action.payload.todo;
+        } else {
+          return item;
+        }
+      });
+    });
+    builder.addCase(updateTodo.rejected, () => {
+      console.error('Failed to update todo');
     });
   },
 });
