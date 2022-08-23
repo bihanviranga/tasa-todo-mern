@@ -7,9 +7,10 @@ const API_BASE = 'http://localhost:8080/api/todo';
 
 interface TodoSliceState {
   items: TodoItem[];
+  listMode: 'all' | 'favs';
 }
 
-const initialState: TodoSliceState = { items: [] };
+const initialState: TodoSliceState = { items: [], listMode: 'all' };
 
 export const getAllTodos = createAsyncThunk('todos/getAll', async () => {
   try {
@@ -59,7 +60,11 @@ export const updateTodo = createAsyncThunk(
 export const todoSlice = createSlice({
   name: 'todo',
   initialState,
-  reducers: {},
+  reducers: {
+    switchListMode: (state, action) => {
+      state.listMode = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getAllTodos.fulfilled, (state, action) => {
       state.items = action.payload;
@@ -97,4 +102,5 @@ export const todoSlice = createSlice({
   },
 });
 
+export const { switchListMode } = todoSlice.actions;
 export default todoSlice.reducer;

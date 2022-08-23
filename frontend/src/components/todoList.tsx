@@ -10,6 +10,7 @@ const TodoList = () => {
   const dispatch = useAppDispatch();
 
   const todos = useAppSelector((state) => state.todos.items);
+  const listMode = useAppSelector((state) => state.todos.listMode);
 
   const triggerGetAllTodos = () => {
     dispatch(getAllTodos());
@@ -21,11 +22,15 @@ const TodoList = () => {
 
   return (
     <Container>
-      {todos.map((todo) => (
-        <Row key={todo._id} className="my-2">
-          <TodoItemElement item={todo} />
-        </Row>
-      ))}
+      {todos.map((todo) => {
+        if (listMode === 'all' || (listMode === 'favs' && todo.favourite)) {
+          return (
+            <Row key={todo._id} className="my-2">
+              <TodoItemElement item={todo} />
+            </Row>
+          );
+        }
+      })}
     </Container>
   );
 };
