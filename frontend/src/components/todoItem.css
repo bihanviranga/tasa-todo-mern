@@ -1,0 +1,8 @@
+.todoItemContainer {
+  border: 1px solid var(--bs-gray-400);
+  padding: 1em;
+}
+
+.todoItemContainer:hover {
+  background: var(--bs-gray-300);
+}

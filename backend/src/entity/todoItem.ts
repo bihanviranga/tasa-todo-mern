@@ -12,6 +12,9 @@ const todoItemSchema = new mongoose.Schema({
     type: Boolean,
     required: true,
   },
+  favourite: {
+    type: Boolean,
+  },
 });
 
 const TodoItem = mongoose.model('TodoItem', todoItemSchema);

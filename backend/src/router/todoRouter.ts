@@ -1,10 +1,11 @@
 import { Router } from 'express';
 
+// import TodoItem from '../entity/todoItem';
+import { getAllTodos } from '../controller/todoController';
+
 const router = Router();
 
-router.get('/', (_req, res) => {
-  res.send('todo GET');
-});
+router.get('/', getAllTodos);
 
 router.post('/', (_req, res) => {
   res.send('todo POST');
