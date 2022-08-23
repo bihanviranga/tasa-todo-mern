@@ -22,11 +22,9 @@ const TodoList = () => {
   return (
     <Container>
       {todos.map((todo) => (
-        <>
-          <Row key={todo._id} className="my-2">
-            <TodoItemElement item={todo} />
-          </Row>
-        </>
+        <Row key={todo._id} className="my-2">
+          <TodoItemElement item={todo} />
+        </Row>
       ))}
     </Container>
   );

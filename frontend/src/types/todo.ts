@@ -5,3 +5,8 @@ export interface TodoItem {
   completed: boolean;
   favourite?: boolean;
 }
+
+export interface TodoItemCreateDto {
+  name: string;
+  description?: string;
+}
