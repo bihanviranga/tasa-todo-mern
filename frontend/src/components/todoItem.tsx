@@ -3,7 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { Pencil, Check2, Trash } from 'react-bootstrap-icons';
+import { Pencil, Check2, Trash, StarFill } from 'react-bootstrap-icons';
 
 import { TodoItem, TodoItemCreateUpdateDto } from '../types/todo';
 import { useAppDispatch } from '../hooks';
@@ -42,6 +42,15 @@ const TodoItemElement = (props: TodoItemElementProps) => {
     );
   };
 
+  const handleToggleFavourite = () => {
+    dispatch(
+      updateTodo({
+        id: item._id,
+        data: { ...item, favourite: !item.favourite },
+      }),
+    );
+  };
+
   return (
     <Container
       className={
@@ -70,6 +79,15 @@ const TodoItemElement = (props: TodoItemElementProps) => {
           >
             {item.description}
           </Row>
+        </Col>
+        <Col sm={1}>
+          <Button
+            size="sm"
+            variant={item.favourite ? 'warning' : 'outline-secondary'}
+            onClick={handleToggleFavourite}
+          >
+            <StarFill />
+          </Button>
         </Col>
         <Col sm={1}>
           <Button
