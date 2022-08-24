@@ -1,9 +1,9 @@
 import { useState } from 'react';
+import { Pencil, Check2, Trash, StarFill } from 'react-bootstrap-icons';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { Pencil, Check2, Trash, StarFill } from 'react-bootstrap-icons';
 
 import { TodoItem, TodoItemCreateUpdateDto } from '../types/todo';
 import { useAppDispatch } from '../hooks';
@@ -61,7 +61,7 @@ const TodoItemElement = (props: TodoItemElementProps) => {
         <Col sm={1}>
           <Button
             size="sm"
-            variant={item.completed ? 'success' : 'outline-success'}
+            variant={item.completed ? 'success' : 'outline-secondary'}
             onClick={handleToggleCompleted}
           >
             <Check2 />

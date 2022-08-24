@@ -1,0 +1,115 @@
+{
+	"info": {
+		"_postman_id": "7fbdd19a-fdc4-4ed2-bf1b-39d2a7ddbc10",
+		"name": "MERN Todo API",
+		"description": "# Introduction\n\nThis API allows to create, retrieve, update, and delete Todo items. The update endpoint is used to mark todos as completed, or mark them as favourites. The retrieve endpoint returns all Todo items.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "16942986"
+	},
+	"item": [
+		{
+			"name": "Get all todo items",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/todo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"todo"
+					]
+				},
+				"description": "Retrieve a list of all Todo items from the database."
+			},
+			"response": []
+		},
+		{
+			"name": "Add todo item",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Postman Test 1\",\n    \"description\": \"Sample description\" \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/todo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"todo"
+					]
+				},
+				"description": "Create a new Todo item. The fields `completed` and `favourite` are set to false by default."
+			},
+			"response": []
+		},
+		{
+			"name": "Delete todo item",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/todo/6304d9b8ee7e3b142cccafc8",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"todo",
+						"6304d9b8ee7e3b142cccafc8"
+					]
+				},
+				"description": "Delete the Todo item with the given ID."
+			},
+			"response": []
+		},
+		{
+			"name": "Update todo item",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"_id\": \"6304d9b9ee7e3b142cccafca\",\n    \"name\": \"Updated Value\",\n    \"description\": \"Updated description\",\n    \"completed\": false,\n    \"favourite\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/todo/6304d9b9ee7e3b142cccafca",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"todo",
+						"6304d9b9ee7e3b142cccafca"
+					]
+				},
+				"description": "Update the Todo item with the given ID. If any fields are not provided, they will keep the old values."
+			},
+			"response": []
+		}
+	]
+}
