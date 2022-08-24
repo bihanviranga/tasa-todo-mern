@@ -22,15 +22,17 @@ const TodoList = () => {
 
   return (
     <Container>
-      {todos.map((todo) => {
-        if (listMode === 'all' || (listMode === 'favs' && todo.favourite)) {
-          return (
-            <Row key={todo._id} className="my-2">
-              <TodoItemElement item={todo} />
-            </Row>
-          );
-        }
-      })}
+      {todos
+        ? todos.map((todo) => {
+            if (listMode === 'all' || (listMode === 'favs' && todo.favourite)) {
+              return (
+                <Row key={todo._id} className="my-2">
+                  <TodoItemElement item={todo} />
+                </Row>
+              );
+            }
+          })
+        : 'Could not fetch todos. Please make sure that the backend is running.'}
     </Container>
   );
 };
